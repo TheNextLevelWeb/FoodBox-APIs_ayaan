@@ -1,5 +1,5 @@
 from django.urls import path, include
-from users.views import Register, LoginView, TokenAuthenticationView, ChangePassword, ForgotPasswordView, FOBListView
+from users.views import Register, LoginView, TokenAuthenticationView, ChangePassword, ForgotPasswordView, FOBListView, ProfileView
 from rest_framework.routers import DefaultRouter
 from django.urls import re_path
 # router = DefaultRouter()
@@ -16,4 +16,6 @@ urlpatterns = [
             name='forgot'),
     path('users/<str:fieldName>/<str:username>/',
          FOBListView.as_view(), name='billing_address'),
+    path('profile/<str:username>/', ProfileView.as_view(), name='profile')
+
 ]

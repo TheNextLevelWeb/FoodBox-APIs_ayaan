@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'users',
     'shop',
     'promocode',
+    'cart',
+    'notification_history',
+    'track_order',
 ]
 
 MIDDLEWARE = [

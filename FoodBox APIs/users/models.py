@@ -7,8 +7,11 @@ def default_empty_list():
 
 class users(models.Model):
     email = models.EmailField(unique=True)
-    username = models.CharField(max_length=15, unique=True)
-    password = models.CharField(max_length=128)
+    phone_number = models.CharField(max_length=17,unique=True,blank=False)
+    username = models.CharField(max_length=15, unique=True, blank=False)
+    name = models.CharField(max_length=25,blank=False)
+    password = models.CharField(max_length=128, blank=False)
+    location = models.CharField(max_length=30,default="India", blank=False)
     billing_address = models.JSONField(blank=True, default=default_empty_list)
     order_history = models.JSONField(blank=True, default=default_empty_list)
     favourite_list = models.JSONField(blank=True, default=default_empty_list)

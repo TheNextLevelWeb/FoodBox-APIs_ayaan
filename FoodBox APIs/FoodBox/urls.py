@@ -6,4 +6,7 @@ urlpatterns = [
     path('', include('users.urls')),
     path('', include('shop.urls')),
     path('', include('promocode.urls')),
+    path('', include('cart.urls')),
+    path('', include('notification_history.urls')),
+    path('', include('track_order.urls')),
 ]

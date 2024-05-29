@@ -235,3 +235,39 @@ class FOBListView(APIView):
                 return Response(f"Cannot update {e}", status=500)
         except Exception as e:
             return Response(f"Error occurred: {e}", status=500)
+
+class ProfileView(APIView):
+    def get(self, request, username):
+        try:
+            user = users.objects.get(username=username)
+            profile_data = {
+                "name": user.name,
+                "phone_number": user.phone_number,
+                "email": user.email,
+                "location": user.location
+            }
+            return Response(profile_data, status=status.HTTP_200_OK)
+        except users.DoesNotExist:
+            return Response({"message": "User not found"}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({"message": f"An error occurred: {e}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def patch(self, request, username):
+        try:
+            user = users.objects.get(username=username)
+            data = request.data
+            if 'name' in data:
+                user.name = data['name']
+            if 'phone_number' in data:
+                user.phone_number = data['phone_number']
+            if 'email' in data:
+                user.email = data['email']
+            if 'location' in data:
+                user.location = data['location']
+
+            user.save()
+            return Response({"message": "Profile updated successfully"}, status=status.HTTP_200_OK)
+        except users.DoesNotExist:
+            return Response({"message": "User not found"}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({"message": f"An error occurred: {e}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
